@@ -1,0 +1,10 @@
+.button {
+  background: none;
+  border: none;
+  margin: 0 0.4rem;
+}
+
+.link {
+  display: flex;
+  justify-content: center;
+}

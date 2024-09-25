@@ -1,0 +1,145 @@
+.container {
+  height: 100vh;
+  width: 100vw;
+  /* background: linear-gradient(to top right, #7dd3fc, #38bdf8, #3b82f6); */
+}
+
+.header {
+  width: 100%;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.headerContent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0 1rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 4px 2px 10px rgba(0, 0, 0, 0.4);
+  text-transform: uppercase;
+
+  background: linear-gradient(
+    to right,
+    rgba(255, 0, 0, 1) 0%,
+    rgba(255, 154, 0, 1) 10%,
+    rgba(208, 222, 33, 1) 20%,
+    rgba(79, 220, 74, 1) 30%,
+    rgba(63, 218, 216, 1) 40%,
+    rgba(47, 201, 226, 1) 50%,
+    rgba(28, 127, 238, 1) 60%,
+    rgba(95, 21, 242, 1) 70%,
+    rgba(186, 12, 248, 1) 80%,
+    rgba(251, 7, 217, 1) 90%,
+    rgba(255, 0, 0, 1) 100%
+  );
+  animation: rainbow 2s ease-in-out infinite;
+  background-clip: text;
+  -webkit-background-clip: text;
+  transition: color 0.2s ease-in-out;
+}
+
+.title:hover {
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0);
+}
+
+@keyframes rainbow {
+  0% {
+    background-position: left;
+  }
+  50% {
+    background-position: right;
+  }
+  100% {
+    background-position: left;
+  }
+}
+
+.menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1.25rem;
+  margin: 0 1rem;
+}
+
+.main {
+  width: 100%;
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+/* Responsive Design */
+
+/* For tablets (screen width 768px and below) */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .headerContent {
+    margin: 0 0 0.6rem 0;
+  }
+
+  .menu {
+    gap: 0.75rem;
+  }
+
+  .title {
+    font-size: 1.6rem;
+  }
+
+  .main {
+    padding: 1rem;
+  }
+
+  .footer {
+    flex-direction: column;
+    padding: 0.5rem;
+  }
+}
+
+/* For mobile phones (screen width 480px and below) */
+@media (max-width: 480px) {
+  .header {
+    align-items: center;
+  }
+
+  .title {
+    font-size: 1.4rem;
+    text-align: center;
+  }
+
+  .menu {
+    width: 90%;
+  }
+
+  .main {
+    padding: 0.5rem;
+  }
+
+  .footer {
+    padding: 0.6rem 0.8rem;
+  }
+}

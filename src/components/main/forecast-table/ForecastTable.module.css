@@ -1,0 +1,29 @@
+.table {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  font-size: 1rem;
+  color: white;
+  font-weight: 600;
+}
+
+.row {
+  display: contents;
+}
+
+.cell {
+  text-align: center;
+  padding: 0.3rem 0.5rem;
+  /* background-color: rgba(255, 255, 255, 0.519); */
+  border: none;
+}
+
+.loadingDiv {
+  color: white;
+}
+
+/* @media (max-width: 790px) {
+  .table {
+    font-size: 0.9rem;
+  }
+} */

@@ -1,0 +1,68 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+}
+
+.text,
+.sun,
+.forecast {
+  padding: 0.25rem;
+}
+
+.text {
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.sun {
+  display: flex;
+  flex-direction: row;
+}
+
+.sun span {
+  font-size: 1.2rem;
+}
+
+.sun div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0 0.3rem;
+}
+
+.icon {
+  font-size: 2rem;
+}
+
+.forecast {
+  width: 96%;
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory; /* Enable scroll snapping */
+  scroll-behavior: smooth;
+  padding: 1rem 0;
+
+  /* Firefox */
+  /* scroll thumb and track */
+  /* scrollbar-color: white var(--forecast-text-color);  */
+}
+
+.forecast::-webkit-scrollbar,
+.forecast::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+}
+
+.forecast::-webkit-scrollbar {
+  background-color: var(--forecast-text-color);
+}
+
+.forecast::-webkit-scrollbar-thumb {
+  background-color: white;
+  border: 3px solid var(--forecast-text-color);
+}

@@ -1,0 +1,52 @@
+.container {
+  margin: 1rem 0;
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  width: 90%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0.8rem 0.6rem;
+  justify-content: center;
+}
+
+.title {
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.dailyForecast {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+
+  /* Firefox */
+  /* scroll thumb and track */
+  /* scrollbar-color: white var(--forecast-text-color);  */
+}
+
+.dailyForecast::-webkit-scrollbar,
+.dailyForecast::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+}
+
+.dailyForecast::-webkit-scrollbar {
+  background-color: var(--forecast-text-color);
+}
+
+.dailyForecast::-webkit-scrollbar-thumb {
+  background-color: white;
+  border: 3px solid var(--forecast-text-color);
+}
+
+@media (max-width: 768px) {
+}
+
+@media (max-width: 480px) {
+}
