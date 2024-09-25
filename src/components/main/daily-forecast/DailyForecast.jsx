@@ -8,7 +8,12 @@ export default function DailyForecast({ data, onDayClick }) {
   const mode = modeCtx.mode;
 
   return (
-    <div className={styles.container} onClick={() => onDayClick(data)}>
+    <div
+      className={styles.container}
+      onClick={() => {
+        onDayClick(data);
+      }}
+    >
       <div className={styles.date}>{formatDate(data.date)}</div>
       <div className={styles.temperature}>
         {mode === 'metric' ? data.day.avgtemp_c : data.day.avgtemp_f}

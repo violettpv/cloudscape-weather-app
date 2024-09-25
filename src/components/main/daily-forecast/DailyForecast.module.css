@@ -9,6 +9,10 @@
   width: 230px;
 }
 
+.container:hover {
+  cursor: pointer;
+}
+
 .date,
 .temperature,
 .icon {

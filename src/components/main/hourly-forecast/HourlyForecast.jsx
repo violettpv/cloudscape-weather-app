@@ -3,39 +3,43 @@ import HourlyData from './HourlyData';
 import { WiSunset, WiSunrise } from 'react-icons/wi';
 import { useContext, useEffect, useRef } from 'react';
 import ModeContext from '@store/ModeContext';
-import { convertTo24Hour } from '@util';
+import { convertTo24Hour, formatDate } from '@util';
 
 export default function HourlyForecast({ data }) {
   const modeCtx = useContext(ModeContext);
   const mode = modeCtx.mode;
 
+  const hourlyData = data?.hour;
+
   const forecastContainerRef = useRef(null);
   const currentHourRef = useRef(null);
   const currentHour = new Date().getHours();
-
-  // const today = new Date().getDate();
-  // const hourlyData = data.forecast.forecastday[0].hour.filter(
-  //   (hour) => new Date(hour.time).getDate() === today
-  // );
-  const hourlyData = data.forecast.forecastday[0].hour;
-  // Define hourlyData even if data is missing
-  //  const hourlyData = data?.forecast?.forecastday?.[0]?.hour || [];
+  const today = new Date().toISOString().split('T')[0]; // today's date in YYYY-MM-DD format
 
   useEffect(() => {
-    if (currentHourRef.current && forecastContainerRef.current) {
-      const forecastContainer = forecastContainerRef.current;
-      const currentHourElement = currentHourRef.current;
-      // Get the horizontal position of the current hour element relative to the forecast container
-      const scrollOffset = currentHourElement.offsetLeft - forecastContainer.offsetLeft;
+    const isToday = data.date === today;
+    const forecastContainer = forecastContainerRef.current;
+
+    if (forecastContainer) {
+      let scrollOffset = 0;
+
+      if (isToday && currentHourRef.current) {
+        // today => scroll to the current hour
+        const currentHourElement = currentHourRef.current;
+        scrollOffset = currentHourElement.offsetLeft - forecastContainer.offsetLeft;
+      } else {
+        // scroll to the start (00:00)
+        scrollOffset = 0;
+      }
 
       forecastContainer.scrollTo({
-        left: scrollOffset, // Scroll to the calculated position
+        left: scrollOffset, // scroll to the calculated position
         behavior: 'smooth',
       });
     }
-  }, [hourlyData]);
+  }, [hourlyData, data.date]);
 
-  if (!data || !data.forecast || !data.forecast.forecastday) {
+  if (!data) {
     return <div>Loading hourly forecast...</div>;
   }
 
@@ -43,27 +47,34 @@ export default function HourlyForecast({ data }) {
     return <div>No hourly data available for today</div>;
   }
 
+  const dateElementText = (date) => {
+    const dateObj = new Date(date);
+    if (dateObj.getDate() === new Date().getDate()) {
+      return 'today';
+    } else if (dateObj.getDate() === new Date().getDate() + 1) {
+      return 'tomorrow';
+    } else {
+      return formatDate(date);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.text}>
-        <p>Hourly forecast for today</p>
+        <p>Hourly forecast for {dateElementText(data.date)}</p>
       </div>
 
       <div className={styles.sun}>
         <div>
           <WiSunrise className={styles.icon} />
           <span>
-            {mode === 'metric'
-              ? convertTo24Hour(data.forecast.forecastday[0].astro.sunrise)
-              : data.forecast.forecastday[0].astro.sunrise}
+            {mode === 'metric' ? convertTo24Hour(data.astro.sunrise) : data.astro.sunrise}
           </span>
         </div>
         <div>
           <WiSunset className={styles.icon} />
           <span>
-            {mode === 'metric'
-              ? convertTo24Hour(data.forecast.forecastday[0].astro.sunset)
-              : data.forecast.forecastday[0].astro.sunset}
+            {mode === 'metric' ? convertTo24Hour(data.astro.sunset) : data.astro.sunset}
           </span>
         </div>
       </div>
@@ -72,7 +83,11 @@ export default function HourlyForecast({ data }) {
         {hourlyData.map((hourly) => (
           <div
             key={hourly.time_epoch}
-            ref={currentHour === new Date(hourly.time).getHours() ? currentHourRef : null}
+            ref={
+              currentHour === new Date(hourly.time).getHours() && data.date === today
+                ? currentHourRef
+                : null
+            }
           >
             <HourlyData
               time={hourly.time.slice(11, 16)}
@@ -94,30 +109,6 @@ export default function HourlyForecast({ data }) {
           </div>
         ))}
       </div>
-
-      {/* <div className={styles.forecast}>
-        {hourlyData.map((hourly) => (
-          <div key={hourly.time_epoch}>
-            <HourlyData
-              time={hourly.time.slice(11, 16)}
-              icon={hourly.condition.icon}
-              temperature={mode === 'metric' ? hourly.temp_c : hourly.temp_f}
-              tempSymbol={mode === 'metric' ? 'C' : 'F'}
-              uv={hourly.uv}
-              humidity={hourly.humidity}
-              precipitationProbability={
-                mode === 'metric' ? hourly.precip_mm : hourly.precip_in
-              }
-              popUnit={mode === 'metric' ? 'mm' : 'in'}
-              windSpeed={mode === 'metric' ? hourly.wind_kph : hourly.wind_mph}
-              windUnit={mode === 'metric' ? 'kph' : 'mph'}
-              windDirection={hourly.wind_degree}
-              pressure={mode === 'metric' ? hourly.pressure_mb : hourly.pressure_in}
-              pressureUnit={mode === 'metric' ? 'mb' : 'in'}
-            />
-          </div>
-        ))}
-      </div> */}
     </div>
   );
 }

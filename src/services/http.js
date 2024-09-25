@@ -1,15 +1,14 @@
 import axios from 'axios';
 const API_URL = 'http://api.weatherapi.com/v1/';
 const API_KEY = '9c8d8360794342f089191046242109';
-// const currentWeather = 'current.json';
 const forecastWeather = 'forecast.json';
 
 const getWeatherByLocation = async (latitude, longitude) => {
   try {
     const response = await axios.get(
-      `${API_URL}${forecastWeather}?key=${API_KEY}&q=${latitude},${longitude}&days=3&aqi=no&alerts=yes`
+      `${API_URL}${forecastWeather}?key=${API_KEY}&q=${latitude},${longitude}&days=3&aqi=no&alerts=no`
     );
-    console.log('response', response);
+    // console.log('response', response);
     return response.data;
   } catch (error) {
     if (error.response) {

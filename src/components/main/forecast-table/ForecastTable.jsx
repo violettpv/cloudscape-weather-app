@@ -24,7 +24,7 @@ export default function ForecastTable({ data }) {
     vis_km,
     vis_miles,
     cloud,
-  } = data.current;
+  } = data;
 
   return (
     <div className={styles.table}>

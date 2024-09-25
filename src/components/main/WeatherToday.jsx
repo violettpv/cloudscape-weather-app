@@ -5,7 +5,7 @@ import { formatDate } from '@util';
 import { useContext } from 'react';
 import ModeContext from '@store/ModeContext';
 
-export default function WeatherToday({ weatherData }) {
+export default function WeatherToday({ locationData, currentWeather, weatherData }) {
   const modeCtx = useContext(ModeContext);
   const mode = modeCtx.mode;
 
@@ -13,29 +13,27 @@ export default function WeatherToday({ weatherData }) {
     <div className={styles.container}>
       <div className={styles.weatherNowContainer}>
         <div className={styles.currDate}>
-          <span>{formatDate(weatherData?.location.localtime)}</span>
+          <span>{formatDate(locationData?.localtime)}</span>
         </div>
         <div className={styles.location}>
           <span>
-            {weatherData?.location.name}, {weatherData?.location.country}
+            {locationData?.name}, {locationData?.country}
           </span>
         </div>
         <div className={styles.weatherIcon}>
-          <img src={weatherData?.current.condition.icon} alt="weather icon" />
+          <img src={currentWeather?.condition.icon} alt="weather icon" />
         </div>
         <div className={styles.weatherDesc}>
-          <span>{weatherData?.current.condition.text}</span>
+          <span>{currentWeather?.condition.text}</span>
         </div>
         <div className={styles.currTemperature}>
           <span>
-            {mode === 'metric'
-              ? weatherData?.current.temp_c
-              : weatherData?.current.temp_f}
+            {mode === 'metric' ? currentWeather?.temp_c : currentWeather?.temp_f}
           </span>
           <span>&deg; {mode === 'metric' ? 'C' : 'F'}</span>
         </div>
         <div className={styles.tableContainer}>
-          <ForecastTable data={weatherData} />
+          <ForecastTable data={currentWeather} />
         </div>
       </div>
       <div className={styles.separator}></div>

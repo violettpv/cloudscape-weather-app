@@ -18,22 +18,21 @@ async function fetchLocation() {
 }
 
 export default function App() {
+  const [weatherData, setWeatherData] = useState(null);
   const [selectedDayWeather, setSelectedDayWeather] = useState(null);
-  // const [weatherData, setWeatherData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  const weatherData = DUMMY_DATA;
 
   // useEffect(() => {
   //   async function fetchWeather() {
   //     try {
   //       const position = await fetchLocation();
-
   //       const data = await getWeatherByLocation(
   //         position.coords.latitude,
   //         position.coords.longitude
   //       );
   //       setWeatherData(data);
+  //       setSelectedDayWeather(data.forecast.forecastday[0]); // today's weather is default
   //     } catch (err) {
   //       setError('Failed to fetch weather data or geolocation.');
   //       console.error(err);
@@ -41,27 +40,29 @@ export default function App() {
   //       setLoading(false);
   //     }
   //   }
-
   //   fetchWeather();
   // }, []);
 
+  // Using DUMMY_DATA for testing
   useEffect(() => {
-    if (weatherData) {
-      setSelectedDayWeather(weatherData.forecast.forecastday[0]);
-    }
-  }, [weatherData]);
+    setWeatherData(DUMMY_DATA);
+    setSelectedDayWeather(DUMMY_DATA.forecast.forecastday[0]);
+  }, []);
 
   // if (loading) {
   //   return <div>Loading weather data...</div>;
   // }
 
-  // if (error) {
-  //   return <div>{error}</div>;
-  // }
+  if (error) {
+    return <div>{error}</div>;
+  }
 
-  if (!weatherData) {
+  if (!weatherData || !selectedDayWeather) {
     return <div>No weather data available</div>;
   }
+
+  const locationData = weatherData?.location;
+  const currentWeatherData = weatherData?.current;
 
   return (
     <ModeContextProvider>
@@ -77,7 +78,12 @@ export default function App() {
           </div>
         </header>
         <main className={styles.main}>
-          <WeatherToday weatherData={weatherData} />
+          <WeatherToday
+            locationData={locationData}
+            currentWeather={currentWeatherData}
+            // weatherData={weatherData}
+            weatherData={selectedDayWeather}
+          />
           <WeatherWeek weatherData={weatherData} onDayClick={setSelectedDayWeather} />
           <div>Saved cities</div>
         </main>

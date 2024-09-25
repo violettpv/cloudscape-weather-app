@@ -4,7 +4,7 @@ import ModeContext from '@store/ModeContext';
 
 export default function ToggleSwitch() {
   const modeCtx = useContext(ModeContext);
-  const [isChecked, setIsChecked] = useState();
+  const [isChecked, setIsChecked] = useState(false);
 
   useEffect(() => {
     setIsChecked(modeCtx.mode === 'imperial');
