@@ -9,11 +9,9 @@ export default function WeatherWeek({ weatherData, onDayClick }) {
       <div className={styles.title}>Daily Forecast</div>
       <div className={styles.dailyForecast}>
         {dailyForecast.map((weatherPerDay) => (
-          <DailyForecast
-            key={weatherPerDay.date_epoch}
-            data={weatherPerDay}
-            onDayClick={onDayClick}
-          />
+          <div key={weatherPerDay.date_epoch}>
+            <DailyForecast data={weatherPerDay} onDayClick={onDayClick} />
+          </div>
         ))}
       </div>
     </div>

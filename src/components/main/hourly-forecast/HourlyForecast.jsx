@@ -37,7 +37,7 @@ export default function HourlyForecast({ data }) {
         behavior: 'smooth',
       });
     }
-  }, [hourlyData, data.date]);
+  }, [hourlyData, data.date, today]);
 
   if (!data) {
     return <div>Loading hourly forecast...</div>;

@@ -30,7 +30,7 @@ export default function HourlyData({
           Pressure: {pressure} {pressureUnit}
         </div>
         <div>
-          Wind: {windSpeed} {windUnit}
+          Wind speed: {windSpeed} {windUnit}
         </div>
         <div>Wind direction: {windDirection}&deg;</div>
         <div>

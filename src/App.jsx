@@ -10,6 +10,7 @@ import { ModeContextProvider } from '@store/ModeContext';
 import ToggleSwitch from '@components/UI/ToggleSwitch';
 import { getWeatherByLocation } from '@services/http';
 import DUMMY_DATA from './test.json';
+import Loading from './components/UI/Loading';
 
 async function fetchLocation() {
   return new Promise((resolve, reject) => {
@@ -22,6 +23,13 @@ export default function App() {
   const [selectedDayWeather, setSelectedDayWeather] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [locationBlocked, setLocationBlocked] = useState(false);
+
+  // Using DUMMY_DATA for testing
+  useEffect(() => {
+    setWeatherData(DUMMY_DATA);
+    setSelectedDayWeather(DUMMY_DATA.forecast?.forecastday[0]);
+  }, []);
 
   // useEffect(() => {
   //   async function fetchWeather() {
@@ -35,7 +43,8 @@ export default function App() {
   //       setSelectedDayWeather(data.forecast.forecastday[0]); // today's weather is default
   //     } catch (err) {
   //       setError('Failed to fetch weather data or geolocation.');
-  //       console.error(err);
+  //       // console.error(err);
+  //       setLocationBlocked(true);
   //     } finally {
   //       setLoading(false);
   //     }
@@ -43,20 +52,14 @@ export default function App() {
   //   fetchWeather();
   // }, []);
 
-  // Using DUMMY_DATA for testing
-  useEffect(() => {
-    setWeatherData(DUMMY_DATA);
-    setSelectedDayWeather(DUMMY_DATA.forecast.forecastday[0]);
-  }, []);
-
   // if (loading) {
   //   return <div>Loading weather data...</div>;
   // }
+  // if (error) {
+  //   return <div>{error}</div>;
+  // }
 
-  if (error) {
-    return <div>{error}</div>;
-  }
-
+  // Needed for testing to avoid error when weatherData is null or undefined
   if (!weatherData || !selectedDayWeather) {
     return <div>No weather data available</div>;
   }
@@ -78,13 +81,26 @@ export default function App() {
           </div>
         </header>
         <main className={styles.main}>
+          {/* {loading || locationBlocked || !weatherData || !selectedDayWeather ? (
+            <Loading />
+          ) : (
+            <>
+              <WeatherToday
+                locationData={locationData}
+                currentWeather={currentWeatherData}
+                weatherData={selectedDayWeather}
+              />
+              <WeatherWeek weatherData={weatherData} onDayClick={setSelectedDayWeather} />
+            </>
+          )} */}
+
           <WeatherToday
             locationData={locationData}
             currentWeather={currentWeatherData}
-            // weatherData={weatherData}
             weatherData={selectedDayWeather}
           />
           <WeatherWeek weatherData={weatherData} onDayClick={setSelectedDayWeather} />
+
           <div>Saved cities</div>
         </main>
         <footer className={styles.footer}>

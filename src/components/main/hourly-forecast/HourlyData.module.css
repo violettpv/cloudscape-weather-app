@@ -7,7 +7,7 @@
   flex-direction: column;
   color: var(--forecast-text-color);
   font-size: 1.05rem;
-  width: 190px;
+  width: 200px;
 }
 
 .column {

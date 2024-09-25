@@ -1,0 +1,16 @@
+.container {
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  width: 90%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  padding: 1rem;
+}
+
+.text {
+  font-weight: bold;
+  font-size: 1.8rem;
+  color: var(--icons-dark-color);
+  text-align: center;
+}
