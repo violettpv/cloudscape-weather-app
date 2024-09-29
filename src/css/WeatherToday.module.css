@@ -59,6 +59,22 @@
   font-weight: 600;
 }
 
+.saveButton {
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  padding: 0.4rem 0.5rem;
+  border: none;
+  border-radius: 5px;
+  color: var(--icons-dark-color);
+  background-color: white;
+}
+
+.saveButton:hover {
+  transform: scale(1.1);
+}
+
 .tableContainer {
   margin-top: 0.2rem;
 }

@@ -25,24 +25,22 @@ const getWeatherByLocation = async (latitude, longitude) => {
   }
 };
 
-// const createUser = async (userData, token) => {
-//   const config = {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   };
-//   const response = await axios.post(API_URL + 'newuser', userData, config);
-//   return response.data;
-// };
+const getWeatherByCity = async (city) => {
+  try {
+    const response = await axios.get(
+      `${API_URL}${forecastWeather}?key=${API_KEY}&q=${city}&days=3&aqi=no&alerts=no`
+    );
+    return response.data;
+  } catch (error) {
+    if (error.response) {
+      console.log(error.response);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log('Error', error.message);
+    }
+    console.log(error.config);
+  }
+};
 
-// const deleteUser = async (uuid, token) => {
-//   const config = {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   };
-//   const response = await axios.delete(API_URL + 'delete/' + uuid, config);
-//   return response.data;
-// };
-
-export { getWeatherByLocation };
+export { getWeatherByLocation, getWeatherByCity };

@@ -24,3 +24,7 @@ export const convertTo24Hour = (time12h) => {
 
   return `${hours.padStart(2, '0')}:${minutes}`;
 };
+
+export const generateKey = (pre) => {
+  return `${pre}_${new Date().getTime()}`;
+};

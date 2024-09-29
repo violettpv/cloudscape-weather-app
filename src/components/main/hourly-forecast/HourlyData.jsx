@@ -1,4 +1,4 @@
-import styles from './HourlyData.module.css';
+import styles from '@css/HourlyData.module.css';
 
 export default function HourlyData({
   time,
@@ -25,18 +25,30 @@ export default function HourlyData({
         <div className={styles.temperature}>
           {temperature}&deg;{tempSymbol}
         </div>
-        <div>Humidity: {humidity}%</div>
-        <div>
-          Pressure: {pressure} {pressureUnit}
+        <div className={styles.forecastTable}>
+          <div className={styles.forecastColumn}>
+            <div>Humidity</div>
+            <div>Pressure</div>
+            <div>Wind speed</div>
+            <div>Wind direction</div>
+            <div>Precipitation</div>
+            <div>UV</div>
+          </div>
+          <div className={styles.forecastColumn}>
+            <div>{humidity} %</div>
+            <div>
+              {pressure} {pressureUnit}
+            </div>
+            <div>
+              {windSpeed} {windUnit}
+            </div>
+            <div>{windDirection}&deg;</div>
+            <div>
+              {precipitationProbability} {popUnit}
+            </div>
+            <div>{uv}</div>
+          </div>
         </div>
-        <div>
-          Wind speed: {windSpeed} {windUnit}
-        </div>
-        <div>Wind direction: {windDirection}&deg;</div>
-        <div>
-          Precipitation: {precipitationProbability} {popUnit}
-        </div>
-        <div>UV: {uv}</div>
       </div>
     </div>
   );

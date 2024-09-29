@@ -1,4 +1,4 @@
-import styles from './ToggleSwitch.module.css';
+import styles from '@css/ToggleSwitch.module.css';
 import { useContext, useEffect, useState } from 'react';
 import ModeContext from '@store/ModeContext';
 

@@ -11,7 +11,6 @@ export const ModeContextProvider = ({ children }) => {
   const toggleMode = () => {
     setMode((prevMode) => (prevMode === 'metric' ? 'imperial' : 'metric'));
   };
-  // console.log('mode', mode);
 
   const modeCtx = {
     mode,

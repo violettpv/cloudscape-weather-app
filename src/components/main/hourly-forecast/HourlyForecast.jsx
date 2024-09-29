@@ -1,9 +1,9 @@
-import styles from './HourlyForecast.module.css';
+import styles from '@css/HourlyForecast.module.css';
 import HourlyData from './HourlyData';
 import { WiSunset, WiSunrise } from 'react-icons/wi';
 import { useContext, useEffect, useRef } from 'react';
 import ModeContext from '@store/ModeContext';
-import { convertTo24Hour, formatDate } from '@util';
+import { convertTo24Hour, formatDate } from '@services/utils';
 
 export default function HourlyForecast({ data }) {
   const modeCtx = useContext(ModeContext);

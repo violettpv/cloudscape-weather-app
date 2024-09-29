@@ -1,4 +1,4 @@
-import styles from './ModalContent.module.css';
+import styles from '@css/ModalContent.module.css';
 
 export default function ModalContent({ onClose }) {
   return (

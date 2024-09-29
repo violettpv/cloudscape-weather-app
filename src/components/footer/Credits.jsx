@@ -1,4 +1,4 @@
-import styles from './Credits.module.css';
+import styles from '@css/Credits.module.css';
 import { FaLinkedin } from 'react-icons/fa';
 import { FaGithub } from 'react-icons/fa';
 import LinkButton from './LinkButton';

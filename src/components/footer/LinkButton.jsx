@@ -1,4 +1,4 @@
-import styles from './LinkButton.module.css';
+import styles from '@css/LinkButton.module.css';
 
 export default function LinkButton({ link, children }) {
   return (

@@ -1,5 +1,5 @@
-import DailyForecast from './daily-forecast/DailyForecast';
-import styles from './WeatherWeek.module.css';
+import DailyForecast from './DailyForecast';
+import styles from '@css/WeatherWeek.module.css';
 
 export default function WeatherWeek({ weatherData, onDayClick }) {
   const dailyForecast = weatherData.forecast.forecastday;

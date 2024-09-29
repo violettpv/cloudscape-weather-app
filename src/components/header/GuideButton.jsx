@@ -1,5 +1,5 @@
 import { FaQuestionCircle } from 'react-icons/fa';
-import styles from './GuideButton.module.css';
+import styles from '@css/GuideButton.module.css';
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import ModalContent from '../UI/ModalContent';

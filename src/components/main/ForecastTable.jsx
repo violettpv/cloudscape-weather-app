@@ -1,4 +1,4 @@
-import styles from './ForecastTable.module.css';
+import styles from '@css/ForecastTable.module.css';
 import { useContext } from 'react';
 import ModeContext from '@store/ModeContext';
 
@@ -44,7 +44,7 @@ export default function ForecastTable({ data }) {
       <div className={styles.row}>
         <div className={styles.cell}>Wind direction</div>
         <div className={styles.cell}>
-          <span>{wind_degree}</span> &deg;
+          <span>{wind_degree}</span>&deg;
         </div>
       </div>
       <div className={styles.row}>
