@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import WeatherToday from '@components/main/WeatherToday';
 import WeatherWeek from '@components/main/WeatherWeek';
 import { ModeContextProvider } from '@store/ModeContext';
+import { SavedCitiesProvider } from './store/SavedCitiesContext';
 import { getWeatherByLocation, getWeatherByCity } from '@services/http';
 import DUMMY_DATA from './test.json';
 import StartPage from '@components/UI/StartPage';
@@ -84,27 +85,29 @@ export default function App() {
 
   return (
     <ModeContextProvider>
-      <MainPage onSearch={handleCitySearch}>
-        {loading && <Loader />}
-        {!weatherData && locationBlocked && <StartPage />}
-        {weatherData && selectedDayWeather && !loading && (
-          <>
-            <WeatherToday
-              locationData={locationData}
-              currentWeather={currentWeatherData}
-              weatherData={selectedDayWeather}
-            />
-            <WeatherWeek weatherData={weatherData} onDayClick={setSelectedDayWeather} />
-          </>
-        )}
+      <SavedCitiesProvider>
+        <MainPage onSearch={handleCitySearch}>
+          {loading && <Loader />}
+          {!weatherData && locationBlocked && <StartPage />}
+          {weatherData && selectedDayWeather && !loading && (
+            <>
+              <WeatherToday
+                locationData={locationData}
+                currentWeather={currentWeatherData}
+                weatherData={selectedDayWeather}
+              />
+              <WeatherWeek weatherData={weatherData} onDayClick={setSelectedDayWeather} />
+            </>
+          )}
 
-        {/* <WeatherToday
+          {/* <WeatherToday
           locationData={locationData}
           currentWeather={currentWeatherData}
           weatherData={selectedDayWeather}
         />
         <WeatherWeek weatherData={weatherData} onDayClick={setSelectedDayWeather} /> */}
-      </MainPage>
+        </MainPage>
+      </SavedCitiesProvider>
     </ModeContextProvider>
   );
 }

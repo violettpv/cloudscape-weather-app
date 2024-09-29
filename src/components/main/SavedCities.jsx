@@ -1,54 +1,22 @@
 import styles from '@css/SavedCities.module.css';
 import { generateKey } from '@services/utils';
 import CityCard from './CityCard';
-import { useState, useEffect } from 'react';
-import { getSavedCities, removeCityFromLocalStorage } from '@services/storageUtils';
-
-const citiesTest = [
-  {
-    name: 'Kyiv',
-    country: 'Ukraine',
-  },
-  {
-    name: 'Lviv',
-    country: 'Ukraine',
-  },
-  {
-    name: 'Odesa',
-    country: 'Ukraine',
-  },
-  {
-    name: 'Kharkiv',
-    country: 'Ukraine',
-  },
-  {
-    name: 'Dnipro',
-    country: 'Ukraine',
-  },
-];
+import { useContext } from 'react';
+import SavedCitiesContext from '@store/SavedCitiesContext';
 
 export default function SavedCities() {
-  const [savedCities, setSavedCities] = useState([]);
+  const { savedCities, removeCity } = useContext(SavedCitiesContext);
 
-  useEffect(() => {
-    const cities = getSavedCities();
-    setSavedCities(cities);
-  }, []);
-
-  const removeCityHandler = (cityToRemove) => {
-    removeCityFromLocalStorage(cityToRemove);
-    setSavedCities(getSavedCities()); // Update state after removal
+  const removeCityHandler = (city) => {
+    removeCity(city);
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.title}>Saved Cities</div>
       <div className={styles.savedCities}>
-        {/* {citiesTest.map((city) => (
-          <CityCard key={generateKey(city.name)} city={city} />
-        ))} */}
         {savedCities.length === 0 ? (
-          <div className={styles.noSaved}>No saved cities yet.</div>
+          <p>No saved cities yet.</p>
         ) : (
           savedCities.map((city) => (
             <CityCard

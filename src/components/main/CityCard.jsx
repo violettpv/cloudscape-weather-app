@@ -1,13 +1,16 @@
 import styles from '@css/CityCard.module.css';
 import { GoBookmarkSlash } from 'react-icons/go';
 
-export default function CityCard({ city, onRemove }) {
+export default function CityCard({ city, onCityClick, onRemove }) {
   return (
     <div className={styles.container}>
-      <div className={styles.text}>
+      <button
+        className={styles.cityButton}
+        // onClick={onCityClick(city)}
+      >
         {city.name}, {city.country}
-      </div>
-      <button className={styles.saveButton} onClick={onRemove}>
+      </button>
+      <button className={styles.unSaveButton} onClick={onRemove}>
         <GoBookmarkSlash />
       </button>
     </div>

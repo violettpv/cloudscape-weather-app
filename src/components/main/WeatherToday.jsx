@@ -2,44 +2,34 @@ import styles from '@css/WeatherToday.module.css';
 import ForecastTable from './ForecastTable';
 import HourlyForecast from './hourly-forecast/HourlyForecast';
 import { formatDate } from '@services/utils';
-import {
-  getSavedCities,
-  saveCityToLocalStorage,
-  removeCityFromLocalStorage,
-} from '@services/storageUtils';
 import { useContext, useEffect, useState } from 'react';
 import ModeContext from '@store/ModeContext';
+import SavedCitiesContext from '@store/SavedCitiesContext';
 
 export default function WeatherToday({ locationData, currentWeather, weatherData }) {
   const modeCtx = useContext(ModeContext);
   const mode = modeCtx.mode;
 
+  const { savedCities, addCity, removeCity } = useContext(SavedCitiesContext);
   const [isSaved, setIsSaved] = useState(false);
 
   useEffect(() => {
-    const savedCities = getSavedCities();
     const cityExists = savedCities.some(
       (city) => city.name === locationData?.name && city.country === locationData?.country
     );
     setIsSaved(cityExists);
-  }, [locationData]);
+  }, [locationData, savedCities]);
 
   const saveCityHandler = () => {
     if (isSaved) {
-      removeCityFromLocalStorage({
-        name: locationData?.name,
-        country: locationData?.country,
-      });
-      setIsSaved(false);
+      removeCity({ name: locationData?.name, country: locationData?.country });
     } else {
-      const success = saveCityToLocalStorage({
+      const success = addCity({
         name: locationData?.name,
         country: locationData?.country,
       });
       if (!success) {
         alert('You can only save up to 5 cities.');
-      } else {
-        setIsSaved(true);
       }
     }
   };

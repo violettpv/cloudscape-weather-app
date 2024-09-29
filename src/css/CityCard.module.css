@@ -10,19 +10,24 @@
   width: fit-content;
 }
 
-.text {
+.cityButton {
+  font-family: inherit;
   font-size: 1.4rem;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
 }
 
-.text,
-.saveButton {
+.cityButton,
+.unSaveButton {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.saveButton {
+.unSaveButton {
   font-size: 1.55rem;
   cursor: pointer;
   margin-left: 0.8rem;
