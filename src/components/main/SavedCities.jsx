@@ -4,7 +4,7 @@ import CityCard from './CityCard';
 import { useContext } from 'react';
 import SavedCitiesContext from '@store/SavedCitiesContext';
 
-export default function SavedCities() {
+export default function SavedCities({ onSearch }) {
   const { savedCities, removeCity } = useContext(SavedCitiesContext);
 
   const removeCityHandler = (city) => {
@@ -23,6 +23,7 @@ export default function SavedCities() {
               key={generateKey(city.name)}
               city={city}
               onRemove={() => removeCityHandler(city)}
+              onSearch={onSearch}
             />
           ))
         )}

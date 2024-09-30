@@ -56,27 +56,6 @@ export default function DailyForecast({ data, onDayClick }) {
           </div>
           <div>{data.day.uv}</div>
         </div>
-        {/* <div>
-          Min/Max t&deg;: {mode === 'metric' ? data.day.mintemp_c : data.day.mintemp_f}
-          &deg; / {mode === 'metric' ? data.day.maxtemp_c : data.day.maxtemp_f}&deg;{' '}
-          {mode === 'metric' ? 'C' : 'F'}
-        </div>
-        <div>Humidity: {data.day.avghumidity} %</div>
-        <div>
-          Max wind speed:{' '}
-          {mode === 'metric' ? data.day.maxwind_mph : data.day.maxwind_kph}{' '}
-          {mode === 'metric' ? 'mph' : 'kph'}
-        </div>
-        <div>
-          Precipitation:{' '}
-          {mode === 'metric' ? data.day.totalprecip_mm : data.day.totalprecip_in}{' '}
-          {mode === 'metric' ? 'mm' : 'in'}
-        </div>
-        <div>
-          Visibility: {mode === 'metric' ? data.day.avgvis_km : data.day.avgvis_miles}{' '}
-          {mode === 'metric' ? 'km' : 'miles'}
-        </div>
-        <div>UV: {data.day.uv}</div> */}
       </div>
     </div>
   );

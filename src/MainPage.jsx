@@ -21,7 +21,7 @@ export default function MainPage({ children, onSearch }) {
       </header>
       <main className={styles.main}>
         {children}
-        <SavedCities />
+        <SavedCities onSearch={onSearch} />
       </main>
       <footer className={styles.footer}>
         <Credits />

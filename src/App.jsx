@@ -3,9 +3,8 @@ import { useState, useEffect } from 'react';
 import WeatherToday from '@components/main/WeatherToday';
 import WeatherWeek from '@components/main/WeatherWeek';
 import { ModeContextProvider } from '@store/ModeContext';
-import { SavedCitiesProvider } from './store/SavedCitiesContext';
+import { SavedCitiesProvider } from '@store/SavedCitiesContext';
 import { getWeatherByLocation, getWeatherByCity } from '@services/http';
-import DUMMY_DATA from './test.json';
 import StartPage from '@components/UI/StartPage';
 import Loader from '@components/UI/Loader';
 import MainPage from './MainPage';
@@ -28,12 +27,6 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [locationBlocked, setLocationBlocked] = useState(false);
-
-  // Using DUMMY_DATA for testing
-  // useEffect(() => {
-  //   setWeatherData(DUMMY_DATA);
-  //   setSelectedDayWeather(DUMMY_DATA.forecast?.forecastday[0]);
-  // }, []);
 
   useEffect(() => {
     async function fetchWeather() {
@@ -61,6 +54,7 @@ export default function App() {
   }, []);
 
   const handleCitySearch = async (city) => {
+    console.log('handleCitySearch:', city);
     try {
       setLoading(true);
       const data = await getWeatherByCity(city);
@@ -74,11 +68,6 @@ export default function App() {
       setLoading(false);
     }
   };
-
-  // Avoiding error if geolocation denied + for testing DUMMY_DATA
-  // if (!weatherData || !selectedDayWeather) {
-  //   return <div>No weather data available</div>;
-  // }
 
   const locationData = weatherData?.location;
   const currentWeatherData = weatherData?.current;
@@ -99,13 +88,6 @@ export default function App() {
               <WeatherWeek weatherData={weatherData} onDayClick={setSelectedDayWeather} />
             </>
           )}
-
-          {/* <WeatherToday
-          locationData={locationData}
-          currentWeather={currentWeatherData}
-          weatherData={selectedDayWeather}
-        />
-        <WeatherWeek weatherData={weatherData} onDayClick={setSelectedDayWeather} /> */}
         </MainPage>
       </SavedCitiesProvider>
     </ModeContextProvider>

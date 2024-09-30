@@ -1,17 +1,14 @@
-import styles from './App.module.css';
 import './index.css';
 import { useState, useEffect } from 'react';
-import SearchBar from '@components/header/SearchBar';
-import GuideButton from '@components/header/GuideButton';
 import WeatherToday from '@components/main/WeatherToday';
 import WeatherWeek from '@components/main/WeatherWeek';
-import Credits from '@components/footer/Credits';
 import { ModeContextProvider } from '@store/ModeContext';
-import ToggleSwitch from '@components/UI/ToggleSwitch';
+import { SavedCitiesProvider } from '@store/SavedCitiesContext';
 import { getWeatherByLocation, getWeatherByCity } from '@services/http';
 import DUMMY_DATA from './test.json';
 import StartPage from '@components/UI/StartPage';
 import Loader from '@components/UI/Loader';
+import MainPage from './MainPage';
 
 async function fetchLocation() {
   return new Promise((resolve, reject) => {
@@ -33,43 +30,19 @@ export default function App() {
   const [locationBlocked, setLocationBlocked] = useState(false);
 
   // Using DUMMY_DATA for testing
-  // useEffect(() => {
-  //   setWeatherData(DUMMY_DATA);
-  //   setSelectedDayWeather(DUMMY_DATA.forecast?.forecastday[0]);
-  // }, []);
-
   useEffect(() => {
-    async function fetchWeather() {
-      try {
-        setLoading(true);
-        const position = await fetchLocation();
-        const data = await getWeatherByLocation(
-          position.coords.latitude,
-          position.coords.longitude
-        );
-        setWeatherData(data);
-        setSelectedDayWeather(data.forecast.forecastday[0]); // today's weather is default
-      } catch (err) {
-        if (err === 'User denied Geolocation') {
-          console.log('Geolocation denied.', err);
-          setLocationBlocked(true);
-        } else {
-          setError('Failed to fetch weather data or geolocation.');
-          // setLocationBlocked(true);
-        }
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchWeather();
+    setWeatherData(DUMMY_DATA);
+    setSelectedDayWeather(DUMMY_DATA.forecast?.forecastday[0]);
   }, []);
 
   const handleCitySearch = async (city) => {
+    console.log('handleCitySearch:', city);
     try {
       setLoading(true);
       const data = await getWeatherByCity(city);
       setWeatherData(data);
       setSelectedDayWeather(data.forecast.forecastday[0]);
+      setLocationBlocked(false);
     } catch (err) {
       // Failed to fetch weather data for the entered city.
       setError(err);
@@ -78,7 +51,7 @@ export default function App() {
     }
   };
 
-  // Avoiding error if geolocation denied
+  // Avoiding error if geolocation denied + for testing DUMMY_DATA
   if (!weatherData || !selectedDayWeather) {
     return <div>No weather data available</div>;
   }
@@ -88,41 +61,16 @@ export default function App() {
 
   return (
     <ModeContextProvider>
-      <div className={styles.container}>
-        <header className={styles.header}>
-          <div className={styles.headerContent}>
-            <h3 className={styles.title}>Cloudscape</h3>
-          </div>
-          <div className={styles.menu}>
-            <SearchBar onSearch={handleCitySearch} />
-            <ToggleSwitch />
-            <GuideButton />
-          </div>
-        </header>
-
-        <main className={styles.main}>
-          {(!weatherData || !selectedDayWeather || locationBlocked) && <StartPage />}
-
-          {loading ? (
-            <Loader />
-          ) : (
-            <>
-              <WeatherToday
-                locationData={locationData}
-                currentWeather={currentWeatherData}
-                weatherData={selectedDayWeather}
-              />
-              <WeatherWeek weatherData={weatherData} onDayClick={setSelectedDayWeather} />
-            </>
-          )}
-
-          <div>Saved cities</div>
-        </main>
-
-        <footer className={styles.footer}>
-          <Credits />
-        </footer>
-      </div>
+      <SavedCitiesProvider>
+        <MainPage onSearch={handleCitySearch}>
+          <WeatherToday
+            locationData={locationData}
+            currentWeather={currentWeatherData}
+            weatherData={selectedDayWeather}
+          />
+          <WeatherWeek weatherData={weatherData} onDayClick={setSelectedDayWeather} />
+        </MainPage>
+      </SavedCitiesProvider>
     </ModeContextProvider>
   );
 }
