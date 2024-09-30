@@ -1,13 +1,14 @@
 import './index.css';
 import { useState, useEffect } from 'react';
-import WeatherToday from '@components/main/WeatherToday';
-import WeatherWeek from '@components/main/WeatherWeek';
+import WeatherToday from '@components/WeatherToday';
+import WeatherWeek from '@components/WeatherWeek';
 import { ModeContextProvider } from '@store/ModeContext';
 import { SavedCitiesProvider } from '@store/SavedCitiesContext';
 import { getWeatherByLocation, getWeatherByCity } from '@services/http';
 import StartPage from '@components/UI/StartPage';
 import Loader from '@components/UI/Loader';
 import MainPage from './MainPage';
+import Error from '@components/UI/Error';
 
 async function fetchLocation() {
   return new Promise((resolve, reject) => {
@@ -54,7 +55,6 @@ export default function App() {
   }, []);
 
   const handleCitySearch = async (city) => {
-    console.log('handleCitySearch:', city);
     try {
       setLoading(true);
       const data = await getWeatherByCity(city);
@@ -76,6 +76,9 @@ export default function App() {
     <ModeContextProvider>
       <SavedCitiesProvider>
         <MainPage onSearch={handleCitySearch}>
+          {error && (
+            <Error title="An error occurred!" message={error.message} openModal />
+          )}
           {loading && <Loader />}
           {!weatherData && locationBlocked && <StartPage />}
           {weatherData && selectedDayWeather && !loading && (

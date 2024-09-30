@@ -1,9 +1,9 @@
 import './index.css';
 import styles from '@css/MainPage.module.css';
-import SavedCities from '@components/main/SavedCities';
-import SearchBar from '@components/header/SearchBar';
-import GuideButton from '@components/header/GuideButton';
-import Credits from '@components/footer/Credits';
+import SavedCities from '@components/SavedCities';
+import SearchBar from '@components/UI/SearchBar';
+import GuideButton from '@components/UI/GuideButton';
+import Credits from '@components/UI/Credits';
 import ToggleSwitch from '@components/UI/ToggleSwitch';
 
 export default function MainPage({ children, onSearch }) {
