@@ -9,10 +9,10 @@
   border: 2px solid rgb(240, 240, 240);
   border-radius: 12px;
   position: absolute;
-  width: 260px;
+  width: 360px;
   height: fit-content;
   top: 70px;
-  left: calc(50% - 125px);
+  left: calc(50% - 190px);
   bottom: 70px;
 }
 
